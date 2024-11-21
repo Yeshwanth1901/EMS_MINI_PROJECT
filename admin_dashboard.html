@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Admin Dashboard</title>
+</head>
+<body class="bg-gray-100">
+    <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md mt-20">
+        <h2 class="text-2xl font-bold mb-4">View Employee Details</h2>
+        <form>
+            <div class="mb-4">
+                <label for="employee-email" class="block text-sm font-bold mb-2">Employee Email</label>
+                <input type="email" id="employee-email" placeholder="Enter employee email" class="w-full px-4 py-2 border rounded">
+            </div>
+            <button type="button" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onclick="viewEmployeeDetails()">View Details</button>
+        </form>
+        <div id="employee-details" class="mt-6 hidden">
+            <h3 class="text-xl font-bold">Employee Details</h3>
+            <p id="details"></p>
+        </div>
+    </div>
+
+    <script>
+        // Predefined employee database
+        const employeeDatabase = {
+            'john.doe@example.com': 'John Doe, Software Engineer, 5 years experience',
+            'jane.smith@example.com': 'Jane Smith, HR Manager, 3 years experience',
+        };
+
+        function viewEmployeeDetails() {
+            const email = document.getElementById('employee-email').value;
+
+            if (email in employeeDatabase) {
+                document.getElementById('employee-details').classList.remove('hidden');
+                document.getElementById('details').innerText = employeeDatabase[email];
+            } else {
+                alert('No details found for this email.');
+                document.getElementById('employee-details').classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>

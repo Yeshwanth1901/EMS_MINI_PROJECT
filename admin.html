@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Admin Login</title>
+</head>
+<body class="bg-gray-100">
+    <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md mt-20">
+        <h2 class="text-2xl font-bold mb-4">Admin Login</h2>
+        <form>
+            <div class="mb-4">
+                <label for="admin-email" class="block text-sm font-bold mb-2">Email</label>
+                <input type="email" id="admin-email" placeholder="Enter email" class="w-full px-4 py-2 border rounded">
+            </div>
+            <div class="mb-4">
+                <label for="admin-password" class="block text-sm font-bold mb-2">Password</label>
+                <input type="password" id="admin-password" placeholder="Enter password" class="w-full px-4 py-2 border rounded">
+            </div>
+            <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="adminLogin()">Login</button>
+        </form>
+    </div>
+
+    <script>
+        // Dummy admin login
+        function adminLogin() {
+            const email = document.getElementById('admin-email').value;
+            const password = document.getElementById('admin-password').value;
+
+            if (email === 'admin@ems.com' && password === 'admin123') {
+                alert('Admin login successful!');
+                window.location.href = 'index.html';
+            } else {
+                alert('Invalid Admin credentials.');
+            }
+        }
+    </script>
+</body>
+</html>

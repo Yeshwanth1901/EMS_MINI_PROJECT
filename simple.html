@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Employee Management System</title>
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation Bar -->
+    <div class="bg-slate-800 p-4 text-white flex justify-between items-center">
+        <h1 class="text-2xl font-bold">Employee Management System</h1>
+        <nav>
+            <a href="#" class="mx-2 text-white hover:underline" onclick="showHome()">Home</a>
+            <a href="#" class="mx-2 text-white hover:underline" onclick="showEmployeeLogin()">Employee Login</a>
+            <a href="#" class="mx-2 text-white hover:underline" onclick="showAdminLogin()">Admin Login</a>
+        </nav>
+    </div>
+
+    <!-- Content Section -->
+    <div id="content" class="p-6 text-center">
+        <h2 class="text-3xl font-bold">Welcome to the Employee Management System</h2>
+        <p class="mt-4 text-gray-700">Use the navigation bar to explore the system.</p>
+    </div>
+
+    <!-- Employee Login -->
+    <div id="employee-login" class="hidden">
+        <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md mt-10">
+            <h2 class="text-2xl font-bold mb-4">Employee Login</h2>
+            <form>
+                <div class="mb-4">
+                    <label for="employee-email" class="block text-sm font-bold mb-2">Email</label>
+                    <input type="email" id="employee-email" placeholder="Enter email" class="w-full px-4 py-2 border rounded">
+                </div>
+                <div class="mb-4">
+                    <label for="employee-password" class="block text-sm font-bold mb-2">Password</label>
+                    <input type="password" id="employee-password" placeholder="Enter password" class="w-full px-4 py-2 border rounded">
+                </div>
+                <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="employeeLogin()">Login</button>
+            </form>
+            <div id="employee-details" class="mt-4 hidden">
+                <h3 class="text-xl font-bold">Employee Details</h3>
+                <p><strong>Name:</strong> <span id="emp-name"></span></p>
+                <p><strong>Email:</strong> <span id="emp-email"></span></p>
+                <p><strong>Occupation:</strong> <span id="emp-occupation"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Login -->
+    <div id="admin-login" class="hidden">
+        <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md mt-10">
+            <h2 class="text-2xl font-bold mb-4">Admin Login</h2>
+            <form>
+                <div class="mb-4">
+                    <label for="admin-email" class="block text-sm font-bold mb-2">Email</label>
+                    <input type="email" id="admin-email" placeholder="Enter employee email" class="w-full px-4 py-2 border rounded">
+                </div>
+                <div class="mb-4">
+                    <label for="admin-details" class="block text-sm font-bold mb-2">Details</label>
+                    <textarea id="admin-details" placeholder="Enter employee details" class="w-full px-4 py-2 border rounded"></textarea>
+                </div>
+                <button type="button" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onclick="saveEmployeeDetails()">Save Details</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Predefined employee data
+        const employeeDatabase = {
+            "john.doe@example.com": {
+                name: "John Doe",
+                email: "john.doe@example.com",
+                occupation: "Software Engineer",
+                password: "password123"
+            },
+            "jane.smith@example.com": {
+                name: "Jane Smith",
+                email: "jane.smith@example.com",
+                occupation: "HR Manager",
+                password: "hrpassword"
+            }
+        };
+
+        // Show Home Page
+        function showHome() {
+            document.getElementById("content").classList.remove("hidden");
+            document.getElementById("employee-login").classList.add("hidden");
+            document.getElementById("admin-login").classList.add("hidden");
+        }
+
+        // Show Employee Login Page
+        function showEmployeeLogin() {
+            document.getElementById("content").classList.add("hidden");
+            document.getElementById("employee-login").classList.remove("hidden");
+            document.getElementById("admin-login").classList.add("hidden");
+        }
+
+        // Show Admin Login Page
+        function showAdminLogin() {
+            document.getElementById("content").classList.add("hidden");
+            document.getElementById("employee-login").classList.add("hidden");
+            document.getElementById("admin-login").classList.remove("hidden");
+        }
+
+        // Employee Login Functionality
+        function employeeLogin() {
+            const email = document.getElementById("employee-email").value;
+            const password = document.getElementById("employee-password").value;
+
+            if (email in employeeDatabase && employeeDatabase[email].password === password) {
+                alert("Employee login successful!");
+
+                const employee = employeeDatabase[email];
+                document.getElementById("emp-name").textContent = employee.name;
+                document.getElementById("emp-email").textContent = employee.email;
+                document.getElementById("emp-occupation").textContent = employee.occupation;
+
+                document.getElementById("employee-details").classList.remove("hidden");
+            } else {
+                alert("Invalid credentials. Please try again.");
+                document.getElementById("employee-details").classList.add("hidden");
+            }
+        }
+
+        // Save Employee Details (Admin)
+        function saveEmployeeDetails() {
+            const email = document.getElementById("admin-email").value;
+            const details = document.getElementById("admin-details").value;
+
+            if (email && details) {
+                employeeDatabase[email] = JSON.parse(details);
+                alert("Employee details saved successfully!");
+                document.getElementById("admin-email").value = "";
+                document.getElementById("admin-details").value = "";
+            } else {
+                alert("Please provide both email and details.");
+            }
+        }
+
+        // Initialize with Home Page visible
+        showHome();
+    </script>
+</body>
+</html>
